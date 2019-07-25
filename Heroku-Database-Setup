@@ -1,0 +1,33 @@
+1. Create the Heroku App inside Heroku
+2. Go to Resources
+3. Serach for Add-ons > Heroku Postgres
+4. Click on Heroku Postgres to open database dashboard
+5. Find the variables in settings eg Host, Database
+6. Set up your .env file using the variables in settings
+7. Make sure you have pg.defaults.ssl=true on top of your knexfile.js to allow heroku to connect to your localhost
+8. Anytime you want to edit anything in the database, rollback and then re-migrate.
+
+Set up your .env file like so:
+
+POSTGRESS_DEV_PASSWORD=823a6802f1072b0f8913482ac429d58d397f5db6ea1581bc16c0f450df27aae9
+POSTGRESS_DEV_DATABASE=d9b22p8ogrorfa
+POSTGRESS_DEV_USER=cqnubzjljibmss
+POSTGRESS_DEV_PORT=5432
+POSTGRESS_DEV_HOST=ec2-54-235-246-201.compute-1.amazonaws.com
+
+OR just use the URI instead of the above if it's only you using:
+POSTGRESS_DEV_URI=postgres://fjqaiuqrszutzf:9bf95beffb14b87dee814a29f73f303f05aa329ac8d2fecd484ecc166e61fcb9@ec2-54-83-1-101.compute-1.amazonaws.com:5432/d1h1cg5bjnl52m/?ssl=true
+
+
+And your knexfile variables should be like so:
+ development: {
+    client: 'pg',
+    connection: {
+      host: process.env.POSTGRESS_DEV_HOST,
+      port: process.env.POSTGRESS_DEV_PORT,
+      user: process.env.POSTGRESS_DEV_USER,
+      password: process.env.POSTGRESS_DEV_PASSWORD,
+      database: process.env.POSTGRESS_DEV_DATABASE
+    }
+
+OR:
